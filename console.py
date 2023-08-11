@@ -38,15 +38,17 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """Create a new instance of basemodel, saves it, and print the id."""
+        storage = FileStorage()
+
         if len(args) == 0:
             print("** class name missing **")
-        
+            return
         try:
             args = shlex.split(args)
-            instance = eval(args[0])
+            instance = eval(args[0])()
             instance.save()
             print(instance.id)
-        except:
+        except NameError:
             print("** class doesn't exist **")
 
     def do_show(self, args):
@@ -57,18 +59,18 @@ class HBNBCommand(cmd.Cmd):
 
         if len(args) == 0:
             print("** class name missing **")
-
+            return
         elif args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
-
+            return
         elif len(args) == 1:
             print("** instance id missing **")
-        
-        elif {args[0].args[1]} not in storage.all():
+            return
+        elif f"{args[0]}.{args[1]}" not in storage.all():
             print("** no instance found **")
-            
+            return
         else:
-            print(storage.all()[{args[0].args[1]}])
+            print(storage.all()[f"{args[0]}.{args[1]}"])
 
     def do_destroy(self, args):
         """ Deletes an instance based on the class name and id."""
@@ -110,7 +112,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 objects.append(value)
 
-        print(ojects)
+        print(objects)
 
     def do_update(self, args):
         """Updates an instance based on the class name and
