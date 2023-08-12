@@ -7,6 +7,7 @@ from uuid import uuid4
 from datetime import datetime
 import models
 
+
 class BaseModel:
     """Custom base for all the classes in the AirBnb console project
 
@@ -54,6 +55,12 @@ class BaseModel:
         """
         return "[{}] ({}) {}".format(self.__class__.__name__,
                                      self.id, self.__dict__)
+
+    def __repr__(self):
+        """Return a string representation of the class. """
+
+        return ("[{}] ({}) {}".format(self.__class__.__name__,
+                                     self.id, self.__dict__))
 
     def save(self):
         """

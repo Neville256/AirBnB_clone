@@ -107,7 +107,8 @@ class HBNBCommand(cmd.Cmd):
             return
         for key, value in storage.all().items():
             if len(args) != 0:
-                if type(value) is eval(args):
+                cls = eval(args)
+                if isinstance(value, cls):
                     objects.append(value)
             else:
                 objects.append(value)
@@ -126,10 +127,12 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
-        elif {args[0].args[1]} not in storage.all():
+        elif f"{args[0]}.{args[1]}" not in storage.all():
             print("** no instance found **")
+            return
         elif len(args) == 2:
             print("** attribute name missing **")
+            return
         elif len(args) == 3:
             print("** value missing **")
         else:

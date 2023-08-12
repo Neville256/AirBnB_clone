@@ -28,7 +28,7 @@ class FileStorage:
         """
         return self.__objects
 
-    def new(self, object):
+    def new(self, obj):
         """sets in __objects the object with the key
         <object class name>.id
 
@@ -36,7 +36,7 @@ class FileStorage:
             object(obj): object to write
 
         """
-        self.__objects[object.__class__.__name__ + '.' + str(object)] = object
+        self.__objects[obj.__class__.__name__ + '.' + str(obj)] = obj
 
     def save(self):
         """
