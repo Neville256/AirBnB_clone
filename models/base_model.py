@@ -52,6 +52,12 @@ class BaseModel:
     def __repr__(self):
         return ("[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__))
 
+    def __repr__(self):
+        """Return a string representation of the class. """
+
+        return ("[{}] ({}) {}".format(self.__class__.__name__,
+                                     self.id, self.__dict__))
+
     def save(self):
         self.updated_at = datetime.utcnow()
         models.storage.save()
