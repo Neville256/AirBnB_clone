@@ -19,7 +19,9 @@ from models.review import Review
 class HBNBCommand(cmd.Cmd):
     """ Class for our airbnb command interpreter."""
     prompt = '(hbnb) '
-    classes = {"BaseModel": BaseModel}
+    classes = {"BaseModel": BaseModel, "User": User,
+               "State": State, "City": City, "Amenity": Amenity,
+               "Place": Place, "Review": Review}
 
     def do_EOF(self, line):
         """An end of file marker."""
@@ -79,18 +81,14 @@ class HBNBCommand(cmd.Cmd):
 
         if len(args) == 0:
             print("** class name missing **")
-
         elif (args[0]) not in HBNBCommand.classes:
             print("** class doesn't exist **")
-
         elif len(args) == 1:
-            print("** class doesn't exist **")
-
-        elif {args[0].args[1]} not in storage.all():
+            print("** instance id missing **")
+        elif f"{args[0]}.{args[1]}" not in storage.all():
             print("** no instance found **")
-
         else:
-            del storage.all()[args[0].args[1]]
+            del storage.all()[f"{args[0]}.{args[1]}"]
             storage.save()
 
     def do_all(self, args):
@@ -135,12 +133,24 @@ class HBNBCommand(cmd.Cmd):
             return
         elif len(args) == 3:
             print("** value missing **")
+
         else:
-            instance = storage.all()[{args[0].args[1]}]
-            a_type = type(getattr(instance, args[2]))
-            args[3] = a_type(args[3])
-            setattr(instance, args[2], args[3])
-        storage.save()
+            instance = storage.all()[f"{args[0]}.{args[1]}"]
+            setattr(instance, args[2], custom_cast(args[3]))
+            storage.save()
+
+
+def custom_cast(string):
+    """Checks a string. If float, return float etc"""
+    try:
+        d = int(string)
+        return d
+    except ValueError:
+        try:
+            e = float(string)
+            return e
+        except ValueError:
+            return string
 
 
 if __name__ == '__main__':

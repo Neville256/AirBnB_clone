@@ -36,7 +36,7 @@ class FileStorage:
             object(obj): object to write
 
         """
-        self.__objects[obj.__class__.__name__ + '.' + str(obj)] = obj
+        self.__objects[obj.__class__.__name__ + '.' + obj.id] = obj
 
     def save(self):
         """
@@ -52,11 +52,11 @@ class FileStorage:
         deserializes the JSON file to __objects, if the JSON
         file exists, otherwise nothing happens)
         """
-    try:
-        with open(self.__file_path, 'r') as f:
-            data = json.loads(f.read())
-            for value in data.values():
-                cls = value["__class__"]
-                self.new(eval(cls)(**value))
-    except Exception:
-        pass
+        try:
+            with open(self.__file_path, 'r') as f:
+                data = json.loads(f.read())
+                for value in data.values():
+                    cls = value["__class__"]
+                    self.new(eval(cls)(**value))
+        except Exception:
+            pass
