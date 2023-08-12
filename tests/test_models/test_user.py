@@ -7,20 +7,20 @@ import os
 import models
 import unittest
 from datetime import datetime
-from models.base_model import Basemodel
+from models.base_model import BaseModel
 
 
-class TestUser(unittest.Testcase):
+class TestUser(unittest.TestCase):
     """
     Test for amenities
     """
 
     def test_name(self):
         """
-        Test for name inouts
+        Test for name inputs
         """
         pass
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main()i
