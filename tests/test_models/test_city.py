@@ -5,12 +5,12 @@ Test suits for amenities
 
 import os
 import models
-import uittest
+import unittest  # Fix the import statement
 from datetime import datetime
 from models.base_model import BaseModel
 
 
-class TestCity(unittest.testCase):
+class TestCity(unittest.TestCase):  # Fix the class name
     """
     Test for amenities
     """

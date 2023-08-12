@@ -10,7 +10,7 @@ import uuid
 import unittest
 from time import sleep
 from datetime import datetime
-from models.base_model import Basemodel
+from models.base_model import BaseModel
 
 
 class TestBaseModel(unittest.TestCase):
@@ -36,11 +36,11 @@ class TestBaseModel(unittest.TestCase):
             ["ALX", 89]
         )
 
-        def test_datetime(self):
-            """
-            Tests for correct datetime format
-            """
-            pass
+    def test_datetime(self):
+        """
+        Tests for correct datetime format
+        """
+        pass
 
 
 if __name__ == '__main__':
