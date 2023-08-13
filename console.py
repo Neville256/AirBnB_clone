@@ -139,6 +139,27 @@ class HBNBCommand(cmd.Cmd):
             setattr(instance, args[2], custom_cast(args[3]))
             storage.save()
 
+    def count(line):
+        """Count the number of instances of a class."""
+        objects = []
+        storage = FileStorage()
+
+        try:
+            if len(args) != 0:
+                eval(args)
+        except NameError:
+            print("** class doesn't exist **")
+            return
+        for key, value in storage.all().items():
+            if len(args) != 0:
+                cls = eval(args)
+                if isinstance(value, cls):
+                    objects.append(value)
+            else:
+                objects.append(value)
+
+        print(len(objects))
+
 
 def custom_cast(string):
     """Checks a string. If float, return float etc"""
