@@ -139,7 +139,7 @@ class HBNBCommand(cmd.Cmd):
             setattr(instance, args[2], custom_cast(args[3]))
             storage.save()
 
-    def count(line):
+    def do_count(self, args):
         """Count the number of instances of a class."""
         objects = []
         storage = FileStorage()
